@@ -4,26 +4,19 @@ using UnityEngine.UI;
 
 public class genItems : MonoBehaviour
 {
+    //calling the contructor of the items class when I am declaring it as a variable
+    //the constructor loads in the default values of the `items` class
     public items newItem = new items();
-    public Button genBtn;
     public GameObject itemContainer;
-    public List<Sprite> randIcons;
+    public List<Sprite> allIcons;
 
-    private void Start()
+    public void generateItems()
     {
-        Debug.Log("NewItem name: " + newItem.itemName);
-        genBtn = GetComponent<Button>();
-
-    }
-
-    public void generateIcon()
-    {
-        GameObject generatedIcon = new GameObject();
-        Image img = generatedIcon.AddComponent<Image>();
-        newItem.assignIcon(randIcons[Random.Range(0, randIcons.Count)]);
+        GameObject newGenItem = new GameObject();
+        Image img = newGenItem.AddComponent<Image>();
+        newItem.assignIcon(allIcons[Random.Range(0, allIcons.Count)]);
         img.sprite = newItem.icon;
-        generatedIcon.transform.SetParent(itemContainer.transform, false);
+        newGenItem.transform.SetParent(itemContainer.transform, false);
     }
-
 
 }

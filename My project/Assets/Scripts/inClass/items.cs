@@ -2,23 +2,26 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class items 
+public class items
 {
+    //to declare a varialbe we need three elements: [scope] [datatype] [customName]
     public string itemName;
     public Sprite icon;
 
-    //in order to load this class with default values
-    //I need to create a "constructor"
-    //That constructor will be called when I use this class as a variable
-
+    //To call this class with default values
+    //I want to create a "constructor" that I can use
+    //when I declare this class for the first time
+    
+    //When making a constructor DO NOT use void because the class
+    //will interpret that as a function rather than a constructor
     public items()
     {
-        this.itemName = "default";
-        this.icon = null;
+        itemName = "default item";
+        icon = null;
     }
 
     public void assignIcon(Sprite newIcon)
     {
-        this.icon = newIcon;
+        icon = newIcon;
     }
 }
