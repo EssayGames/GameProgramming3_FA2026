@@ -3,9 +3,12 @@ using UnityEngine.EventSystems;
 
 public class Inventroy : MonoBehaviour, IDropHandler
 {
+    public WalletManager wallet;
     public void OnDrop(PointerEventData eventData)
     {
         GameObject droppedItem = eventData.pointerDrag;
-        droppedItem.GetComponent<shopItemData>().lastPos = transform;
+        shopItemData droppedData = droppedItem.GetComponent<shopItemData>();
+        droppedData.lastPos = transform;
+        wallet.updateMoney(droppedData.pData.price);
     }
 }
