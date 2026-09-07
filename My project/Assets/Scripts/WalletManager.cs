@@ -1,10 +1,12 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WalletManager : MonoBehaviour
 {
     public int startingCash;
     public TextMeshProUGUI walletDisplay;
+    public UnityEvent returnItem;
 
     void Start()
     {
@@ -15,7 +17,15 @@ public class WalletManager : MonoBehaviour
     {
         int currentCash = startingCash;
         currentCash += -value;
-        startingCash = currentCash;
-        walletDisplay.text = currentCash.ToString();
+        if(currentCash < 0)
+        {
+            returnItem.Invoke();
+        }
+        else
+        {
+            startingCash = currentCash;
+            walletDisplay.text = currentCash.ToString();
+        }
+        
     }
 }

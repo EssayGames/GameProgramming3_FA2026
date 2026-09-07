@@ -1,14 +1,32 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class Inventroy : MonoBehaviour, IDropHandler
 {
+    public cashCheck purchase;
     public WalletManager wallet;
+    public GameObject droppedItem;
+    public shopItemData droppedData;
+    public Transform shopContainer;
     public void OnDrop(PointerEventData eventData)
     {
-        GameObject droppedItem = eventData.pointerDrag;
-        shopItemData droppedData = droppedItem.GetComponent<shopItemData>();
+        droppedItem = eventData.pointerDrag;
+        droppedData = droppedItem.GetComponent<shopItemData>();
         droppedData.lastPos = transform;
-        wallet.updateMoney(droppedData.pData.price);
+        purchase.Invoke(droppedData.pData.price);
+        //wallet.updateMoney(droppedData.pData.price);
     }
+
+    public void noMoney()
+    {
+        droppedData.lastPos = shopContainer;
+    }
+}
+
+
+[System.Serializable]
+public class cashCheck : UnityEvent<int>
+{
+
 }

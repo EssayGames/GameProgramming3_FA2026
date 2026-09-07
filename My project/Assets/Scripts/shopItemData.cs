@@ -43,4 +43,9 @@ public class shopItemData : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         infoText.text = "";
     }
+
+    public void listenForEvent()
+    {
+
+    }
 }

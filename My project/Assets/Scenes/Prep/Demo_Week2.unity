@@ -167,11 +167,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 1080, y: 720}
+  m_ScreenMatchMode: 2
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -534,7 +534,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -252.67879, y: -159.6}
+  m_AnchoredPosition: {x: -438, y: -285}
   m_SizeDelta: {x: 95, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &330156399
@@ -665,7 +665,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 296.89, y: -194.15}
+  m_AnchoredPosition: {x: 365.91, y: -316.36}
   m_SizeDelta: {x: 100, y: 24.3072}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &399405034
@@ -804,7 +804,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -132.77, y: -159.6}
+  m_AnchoredPosition: {x: -318.09125, y: -285}
   m_SizeDelta: {x: 95, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &495873740
@@ -935,8 +935,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 296.89, y: -20.600006}
-  m_SizeDelta: {x: 100, y: 24.3072}
+  m_AnchoredPosition: {x: 365.9, y: -17.847}
+  m_SizeDelta: {x: 100, y: 24.307}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &496971748
 MonoBehaviour:
@@ -1289,8 +1289,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -192.50378, y: 4.084671}
-  m_SizeDelta: {x: -419.5374, y: -68.16934}
+  m_AnchoredPosition: {x: -382.99005, y: 4.084656}
+  m_SizeDelta: {x: -800.5098, y: -68.1693}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &980877947
 MonoBehaviour:
@@ -1525,8 +1525,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 8.8855, y: 0}
+  m_SizeDelta: {x: 17.771, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1685404220
 MonoBehaviour:
@@ -1664,8 +1664,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 192, y: -49.485}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 192, y: -16.206}
+  m_SizeDelta: {x: 200, y: 32.0556}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1695784684
 MonoBehaviour:
@@ -1681,6 +1681,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WalletManager
   startingCash: 100
   walletDisplay: {fileID: 1806466887}
+  returnItem:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1938421612}
+        m_TargetAssemblyTypeName: Inventroy, Assembly-CSharp
+        m_MethodName: noMoney
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1695784685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1742,8 +1757,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.9050903, y: -82.408226}
-  m_SizeDelta: {x: -479.9663, y: -241.1544}
+  m_AnchoredPosition: {x: -90.40849, y: -145.16998}
+  m_SizeDelta: {x: -812.627, y: -366.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1783969136
 MonoBehaviour:
@@ -1956,8 +1971,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 110.94412, y: 72.5}
-  m_SizeDelta: {x: -271.88824, y: -205}
+  m_AnchoredPosition: {x: 145.45245, y: 145.97276}
+  m_SizeDelta: {x: -340.905, y: -351.9455}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1938421609
 MonoBehaviour:
@@ -2033,7 +2048,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7930bdd11cc0db48947474908fe7d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventroy
+  purchase:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1695784684}
+        m_TargetAssemblyTypeName: WalletManager, Assembly-CSharp
+        m_MethodName: updateMoney
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   wallet: {fileID: 1695784684}
+  droppedItem: {fileID: 0}
+  droppedData: {fileID: 0}
+  shopContainer: {fileID: 0}
 --- !u!1 &1941284918
 GameObject:
   m_ObjectHideFlags: 0
