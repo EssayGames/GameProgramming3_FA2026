@@ -9,7 +9,8 @@ public class ShopManager : MonoBehaviour
     public int shopAmt;
     public GameObject shopContainer;
     public TextMeshProUGUI textContainer;
-
+    public Button enterBtn;
+    public Button leaveBtn;
 
     public void shopEnter()
     {
@@ -36,15 +37,23 @@ public class ShopManager : MonoBehaviour
             newP.transform.SetParent(shopContainer.transform, false);
         }
 
+        enterBtn.interactable = false;
+        leaveBtn.interactable = true;
+
     }
 
     //this method is called by the `Leave Button` On_Click ______
     public void shopLeave()
     {
-        for(int i = 0; i < shopAmt; i++)
+        int shopAmtRemaining = shopContainer.transform.childCount;
+
+        for(int i = 0; i < shopAmtRemaining; i++)
         {
             Destroy(shopContainer.transform.GetChild(i).gameObject);
         }
+
+        enterBtn.interactable = true;
+        leaveBtn.interactable = false;
 
     }
 
