@@ -108,16 +108,15 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.probuilder": {
-      "version": "6.1.2",
+      "version": "file:com.unity.probuilder",
       "depth": 0,
-      "source": "registry",
+      "source": "embedded",
       "dependencies": {
         "com.unity.shadergraph": "17.0.3",
-        "com.unity.modules.imgui": "1.0.0",
+        "com.unity.settings-manager": "1.0.3",
         "com.unity.modules.physics": "1.0.0",
-        "com.unity.settings-manager": "1.0.3"
-      },
-      "url": "https://packages.unity.com"
+        "com.unity.modules.imgui": "1.0.0"
+      }
     },
     "com.unity.render-pipelines.core": {
       "version": "17.5.0",

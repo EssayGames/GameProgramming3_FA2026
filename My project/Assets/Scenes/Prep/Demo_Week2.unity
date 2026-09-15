@@ -2066,7 +2066,7 @@ MonoBehaviour:
   wallet: {fileID: 1695784684}
   droppedItem: {fileID: 0}
   droppedData: {fileID: 0}
-  shopContainer: {fileID: 0}
+  shopContainer: {fileID: 980877946}
 --- !u!1 &1941284918
 GameObject:
   m_ObjectHideFlags: 0

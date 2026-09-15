@@ -14,7 +14,12 @@ public class Inventroy : MonoBehaviour, IDropHandler
         droppedItem = eventData.pointerDrag;
         droppedData = droppedItem.GetComponent<shopItemData>();
         droppedData.lastPos = transform;
+
+        //purchase is a UnityEvent that takes an int argument
+        //when invoked we transmite the price of pData
         purchase.Invoke(droppedData.pData.price);
+
+
         //wallet.updateMoney(droppedData.pData.price);
     }
 
