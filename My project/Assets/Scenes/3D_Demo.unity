@@ -11426,7 +11426,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 374615065}
-  - component: {fileID: 374615064}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -11434,22 +11433,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &374615064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 374615063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53eb90bb4dba1bf438bf4c43534f2968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameController
-  coinGot:
-    m_PersistentCalls:
-      m_Calls: []
-  coinUI: {fileID: 1167415907}
 --- !u!4 &374615065
 Transform:
   m_ObjectHideFlags: 0
@@ -11798,7 +11781,6 @@ GameObject:
   - component: {fileID: 398121803}
   - component: {fileID: 398121802}
   - component: {fileID: 398121801}
-  - component: {fileID: 398121807}
   m_Layer: 0
   m_Name: Cage
   m_TagString: Untagged
@@ -19821,18 +19803,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &398121807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 398121800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06f2e7de00b1c0340a1750bd88ecde40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CageTimer
 --- !u!1001 &558808920
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20827,7 +20797,6 @@ GameObject:
   m_Component:
   - component: {fileID: 818351263}
   - component: {fileID: 818351265}
-  - component: {fileID: 818351264}
   m_Layer: 0
   m_Name: ButtonTrigger
   m_TagString: Untagged
@@ -20850,33 +20819,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 744216208}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &818351264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 818351262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c4c7a421594aef45b99b4ee0ccc55ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PillarInteract
-  buttonPush:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 398121807}
-        m_TargetAssemblyTypeName: CageTimer, Assembly-CSharp
-        m_MethodName: cageEnter
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!135 &818351265
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -21088,7 +21030,6 @@ GameObject:
   - component: {fileID: 1167415912}
   - component: {fileID: 1167415911}
   - component: {fileID: 1167415910}
-  - component: {fileID: 1167415909}
   m_Layer: 5
   m_Name: CoinsUI
   m_TagString: Untagged
@@ -21117,20 +21058,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 144.3252, y: 75}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &1167415909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167415907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ac45aaab0a4cfe4f862c17eb8bb645e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CoinsUI
-  coinsAmt: {fileID: 579490436}
-  currentCoins: 0
 --- !u!114 &1167415910
 MonoBehaviour:
   m_ObjectHideFlags: 0
