@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 986535315146699827}
   - component: {fileID: 1978717221483425548}
   - component: {fileID: 4848357297432376560}
+  - component: {fileID: 9135967981129611253}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -2969,3 +2970,15 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.55
   m_Center: {x: 0.000000059604645, y: -0.4089465, z: 0}
+--- !u!114 &9135967981129611253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7464770194910908862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb599dc22de7ffa4690c152540fcd58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinGrab
