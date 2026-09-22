@@ -4,6 +4,8 @@ public class _CoinCollect : MonoBehaviour
 {
     //TODO: Reference the GameController Singleton
 
+   public void Start() { 
+    }
    public void OnTriggerEnter(Collider other)
     {
         Debug.Log("Collider Name: " + other.gameObject.name);

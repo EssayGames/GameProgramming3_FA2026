@@ -9,9 +9,12 @@ public class _GameController : MonoBehaviour
     //BUT those variables can ONLY by set privated (aka within this class)
     public static _GameController instance { get; private set; }
     public UnityEvent updateUI;
+    public CoinsUI coinInventory;
 
     public GameObject ThirdPersonRig;
     public Transform mainStartingTransform;
+    public Vector3 loadPos;
+    public Quaternion loadRot;
 
     public void Awake()
     {
@@ -27,9 +30,14 @@ public class _GameController : MonoBehaviour
             //that takes two arguments: Scene & LoadSceneMode
             //This `Action` is called whenever a new Scene is loaded
             SceneManager.sceneLoaded += OnSceneLoad;
+            DontDestroyOnLoad(this);
         }
 
-        DontDestroyOnLoad(this);
+    }
+
+    public void Start()
+    {
+        updateUI.AddListener(coinInventory.addCoins);
     }
 
     //this is the receiver method of the sceneLoaded Action
@@ -39,8 +47,18 @@ public class _GameController : MonoBehaviour
     {
         if(scene.buildIndex == 0)
         {
-            //Calls the Instantation method using dynamic arguments for the position and rotation
-            SpawnThirdPersonPrefab(mainStartingTransform.position, mainStartingTransform.rotation);
+            //the below logic checks to see if data has been loaded into loadPos
+            //if loadPos is `blank` then the game spawns the player at the mainStartingTransform
+            //if loadPos has data then the game spawns the player at the loadPos & loadRot spot
+            if (loadPos == Vector3.zero)
+            {
+                //Calls the Instantation method using dynamic arguments for the position and rotation
+                SpawnThirdPersonPrefab(mainStartingTransform.position, mainStartingTransform.rotation);
+            }
+            else
+            {
+                SpawnThirdPersonPrefab(loadPos, loadRot);
+            }
         }
     }
 
@@ -49,6 +67,14 @@ public class _GameController : MonoBehaviour
     public void SpawnThirdPersonPrefab(Vector3 pos, Quaternion rot)
     {
         Instantiate(ThirdPersonRig, pos, rot);
+    }
+
+    //this method is called by the trigger of our loading zone(s) when we exit this scene
+    //so that when we reload the `3D_demo` scene, we use the loadPos and loadRot data
+    public void loadLocationData(Vector3 pos, Quaternion rot)
+    {
+        loadPos = pos;
+        loadRot = rot;
     }
 
     public void coinGot()

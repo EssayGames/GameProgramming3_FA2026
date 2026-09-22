@@ -11467,6 +11467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba43306f7ffbf54b967017705880dfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_HouseEnter
+  houseReturn: {fileID: 985658852}
 --- !u!65 &292834017
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11542,6 +11543,8 @@ MonoBehaviour:
       m_Calls: []
   ThirdPersonRig: {fileID: 8047161636021232021, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
   mainStartingTransform: {fileID: 1280359359}
+  loadPos: {x: 0, y: 0, z: 0}
+  loadRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &392098398
 GameObject:
   m_ObjectHideFlags: 0
@@ -21051,7 +21054,7 @@ Transform:
   m_GameObject: {fileID: 985658851}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.92, y: -1.097, z: 0.93}
+  m_LocalPosition: {x: -5.028, y: -1.097, z: 0.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

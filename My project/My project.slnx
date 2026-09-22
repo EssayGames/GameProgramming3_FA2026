@@ -3,9 +3,9 @@
   <Project Path="Unity.ProBuilder.Poly2Tri.csproj" />
   <Project Path="Unity.ProBuilder.Csg.csproj" />
   <Project Path="Unity.ProBuilder.Editor.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Unity.ProBuilder.KdTree.csproj" />
   <Project Path="Unity.ProBuilder.AddOns.Editor.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="Unity.ProBuilder.AssetIdRemapUtility.csproj" />
   <Project Path="Unity.StarterAssets.Editor.csproj" />
