@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class _GameController : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class _GameController : MonoBehaviour
     //BUT those variables can ONLY by set privated (aka within this class)
     public static _GameController instance { get; private set; }
     public UnityEvent updateUI;
+
+    public GameObject ThirdPersonRig;
+    public Transform mainStartingTransform;
 
     public void Awake()
     {
@@ -19,9 +23,32 @@ public class _GameController : MonoBehaviour
         else
         {
             instance = this;
+            //this is a build-in `Action` within the SceneManager that requires a listener method
+            //that takes two arguments: Scene & LoadSceneMode
+            //This `Action` is called whenever a new Scene is loaded
+            SceneManager.sceneLoaded += OnSceneLoad;
         }
 
         DontDestroyOnLoad(this);
+    }
+
+    //this is the receiver method of the sceneLoaded Action
+    //it checks for what scene has been loaded using the scene's build index number
+    //that number is set in the Build Profile(s) for the project
+    public void OnSceneLoad(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.buildIndex == 0)
+        {
+            //Calls the Instantation method using dynamic arguments for the position and rotation
+            SpawnThirdPersonPrefab(mainStartingTransform.position, mainStartingTransform.rotation);
+        }
+    }
+
+    //a PUBLIC method we can call from outside this class to instantiate our ThirdPersonRig prefab
+    //it takes two arguments, the position and rotation of where we want to spawn the ThirdPersonRig prefab
+    public void SpawnThirdPersonPrefab(Vector3 pos, Quaternion rot)
+    {
+        Instantiate(ThirdPersonRig, pos, rot);
     }
 
     public void coinGot()
