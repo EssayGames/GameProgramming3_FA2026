@@ -11266,7 +11266,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
+  - {fileID: 2100000, guid: 3311d2e2789969f44b4dfb91e0cdfd10, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12434,12 +12434,14 @@ MonoBehaviour:
   coinUpdate:
     m_PersistentCalls:
       m_Calls: []
-  coinHUD: {fileID: 581478373}
+  coinHUD: {fileID: 0}
   currentCoins: 0
   startingLoc: {fileID: 23873899}
   loadLoc: {x: 0, y: 0, z: 0}
   loadRot: {x: 0, y: 0, z: 0, w: 0}
+  firstSceneloaded: 0
   ThirdPersonRig: {fileID: 8047161636021232021, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
+  collectCoinIDs: []
 --- !u!1 &392098398
 GameObject:
   m_ObjectHideFlags: 0

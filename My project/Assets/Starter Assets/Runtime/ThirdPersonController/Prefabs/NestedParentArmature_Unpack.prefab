@@ -47,6 +47,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_EventSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 1992104595683069851, guid: f0271df749728104eac22c3d897fd8ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8063073397250431797, guid: f0271df749728104eac22c3d897fd8ce, type: 3}
       propertyPath: m_RootOrder
       value: 4

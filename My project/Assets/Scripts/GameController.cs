@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using System.Linq;
+using StarterAssets;
 
 public class GameController : MonoBehaviour
 {
@@ -16,6 +19,8 @@ public class GameController : MonoBehaviour
     public Quaternion loadRot;
     public bool firstSceneloaded = false;
     public GameObject ThirdPersonRig;
+
+    public List<string> collectCoinIDs;
 
     public void Awake()
     {
@@ -53,6 +58,8 @@ public class GameController : MonoBehaviour
                 Debug.Log("Spawned Character at new Location");
                 SpawnCharacter(loadLoc, loadRot);
             }
+
+            loadCoins();
         }
     }
 
@@ -70,12 +77,50 @@ public class GameController : MonoBehaviour
         loadRot = rot;
     }
 
-    public void coinCollect()
+    public void coinCollect(string coinID)
     {
-        //Debug.Log("YOU COLLECTED A COIN!");
+        //Debug.Log("CoinID: " + coinID);
+        collectCoinIDs.Add(coinID);
         currentCoins++;
         coinUpdate.AddListener(coinHUD.addCoins);
         coinUpdate.Invoke(currentCoins);
+    }
+
+    public void loadCoins()
+    {
+        coinGrab[] allCoinsInScene = FindObjectsByType<coinGrab>();
+
+        if(collectCoinIDs != null)
+        {
+            foreach(coinGrab coin in allCoinsInScene)
+            {
+                if (collectCoinIDs.Contains(coin.coinID))
+                {
+                    Destroy(coin.gameObject);
+                }
+            }
+        }
+    }
+
+    //this is a `setter` method for the `coinHUD` variable in this class
+    public void setUI(coinUI ui)
+    {
+        coinHUD = ui;
+    }
+
+    public void setPlayerMovement(bool b)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        ThirdPersonController tpc = player.GetComponent<ThirdPersonController>();
+
+        if (b)
+        {
+            tpc.enabled = false;
+        }
+        else
+        {
+            tpc.enabled = true;
+        }
     }
 }
 
