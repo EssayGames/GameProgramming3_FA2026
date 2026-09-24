@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -8,13 +9,15 @@ public class _GameController : MonoBehaviour
     //what that means is that the "data" or variable of this class can be fetched publicly
     //BUT those variables can ONLY by set privated (aka within this class)
     public static _GameController instance { get; private set; }
-    public UnityEvent updateUI;
+    public updateCoins updateUI;
     public CoinsUI coinInventory;
+    public int currentCoins;
 
     public GameObject ThirdPersonRig;
     public Transform mainStartingTransform;
     public Vector3 loadPos;
     public Quaternion loadRot;
+    public List<string> coinsCollected;
 
     public void Awake()
     {
@@ -35,10 +38,6 @@ public class _GameController : MonoBehaviour
 
     }
 
-    public void Start()
-    {
-        updateUI.AddListener(coinInventory.addCoins);
-    }
 
     //this is the receiver method of the sceneLoaded Action
     //it checks for what scene has been loaded using the scene's build index number
@@ -59,6 +58,9 @@ public class _GameController : MonoBehaviour
             {
                 SpawnThirdPersonPrefab(loadPos, loadRot);
             }
+
+            updateUI.AddListener(coinInventory.addCoins);
+            loadCoins();
         }
     }
 
@@ -77,9 +79,41 @@ public class _GameController : MonoBehaviour
         loadRot = rot;
     }
 
-    public void coinGot()
+    //this method takes the unique coinID of each prefab instance when it is collected by the player
+    //it then invokes the UI to add a coin to the existing count (CURRENTLY NOT WORKING)
+    public void coinGot(string coinID)
     {
-        updateUI.Invoke();
-        Debug.Log("YOU HAVE INVOKED THE UI UPDATE!");
+        coinsCollected.Add(coinID);
+        currentCoins++;
+        updateUI.Invoke(currentCoins);
+        //Debug.Log("YOU HAVE INVOKED THE UI UPDATE!");
     }
+
+    public void loadCoins()
+    {
+        _CoinCollect[] allCoinsInScene = FindObjectsByType<_CoinCollect>();
+        if(coinsCollected != null)
+        {
+            //make our comparison
+            foreach(_CoinCollect coin in allCoinsInScene)
+            {
+                if (coinsCollected.Contains(coin.coinID))
+                {
+                    Destroy(coin.gameObject);
+                }
+            }
+        }
+    }
+
+    //this is a `setter` method for my `coinInvetory` variable
+    public void loadCoinUI(CoinsUI ui)
+    {
+        coinInventory = ui;
+    }
+}
+
+[System.Serializable]
+public class updateCoins : UnityEvent<int>
+{
+
 }

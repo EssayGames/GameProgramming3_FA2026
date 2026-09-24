@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
     public void Start()
     {
         CoinsUI cUI = coinUI.GetComponent<CoinsUI>();
-        coinGot.AddListener(cUI.addCoins);
+        //coinGot.AddListener(cUI.addCoins);
     }
 
     public void updateCoins()

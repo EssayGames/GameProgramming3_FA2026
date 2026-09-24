@@ -4,11 +4,14 @@ using UnityEngine;
 public class CoinsUI : MonoBehaviour
 {
     public TextMeshProUGUI coinsAmt;
-    public int currentCoins;
-
-    public void addCoins()
+    
+    public void Awake()
     {
-        currentCoins++;
-        coinsAmt.text = currentCoins.ToString();
+        _GameController.instance.loadCoinUI(this);
+    }
+
+    public void addCoins(int coins)
+    { 
+        coinsAmt.text = coins.ToString();
     }
 }
