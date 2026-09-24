@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -59,7 +60,6 @@ public class _GameController : MonoBehaviour
                 SpawnThirdPersonPrefab(loadPos, loadRot);
             }
 
-            updateUI.AddListener(coinInventory.addCoins);
             loadCoins();
         }
     }
@@ -85,6 +85,7 @@ public class _GameController : MonoBehaviour
     {
         coinsCollected.Add(coinID);
         currentCoins++;
+        updateUI.AddListener(coinInventory.addCoins);
         updateUI.Invoke(currentCoins);
         //Debug.Log("YOU HAVE INVOKED THE UI UPDATE!");
     }
@@ -109,6 +110,23 @@ public class _GameController : MonoBehaviour
     public void loadCoinUI(CoinsUI ui)
     {
         coinInventory = ui;
+    }
+
+    //this is a method that is called by the StartDialog event in the DialogRunner class
+    //we will toggle true/false in the event system to call whether we want to move or not
+    public void setPlayerMovement(bool b)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        ThirdPersonController tpc = player.GetComponent<ThirdPersonController>();
+
+        if (b)
+        {
+            tpc.enabled = false;
+        }
+        else
+        {
+            tpc.enabled = true;
+        }
     }
 }
 
