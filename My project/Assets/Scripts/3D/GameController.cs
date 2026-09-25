@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using StarterAssets;
 
 public class GameController : MonoBehaviour
 {
@@ -91,6 +92,28 @@ public class GameController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void setPlayerMovement(bool b)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        ThirdPersonController tpc = player.GetComponent<ThirdPersonController>();
+        
+        if (b)
+        {
+            tpc.enabled = false;
+            //tpc.MoveSpeed = 0;
+            //tpc.LockCameraPosition = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            tpc.enabled = true;
+            //tpc.MoveSpeed = 2;
+            //tpc.LockCameraPosition = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        
     }
 
 }

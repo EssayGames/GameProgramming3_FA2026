@@ -1,0 +1,11 @@
+﻿title: NPC_dialogue
+---
+This is an example of a Yarn Spinner script. Write your dialogue here!
+===
+
+title: Start
+---
+Hello! Nice to meet you.
+->Cool!
+That's Right, it's great!
+===
