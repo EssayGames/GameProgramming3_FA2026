@@ -1,8 +1,13 @@
 ﻿title: Demo_Dialogue
 ---
+<<declare $test_bool = false>>
 This is an example of a Yarn Spinner script. Write your dialogue here!
 ===
 title: Start
 ---
+<<if $test_bool>>
 Hello, there! Nice to see you! I hope you're enjoying this adventure
+<<else>>
+You did the test already!
+<<endif>>
 ===
