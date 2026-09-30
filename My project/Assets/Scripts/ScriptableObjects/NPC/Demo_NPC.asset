@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf1383455f0523c4fb69bcbab3314e0f, type: 3}
   m_Name: Demo_NPC
   m_EditorClassIdentifier: Assembly-CSharp::NPC_Data
-  npcName: 
-  startingNode: 
-  currentPhase: 0
+  npcName: THE WONDERFUL INSTRUCTOR NICHOLAS O'BRIEN
+  startingNode: loadPhase
+  currentPhase: 3

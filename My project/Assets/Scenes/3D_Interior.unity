@@ -2249,6 +2249,7 @@ MonoBehaviour:
   canInteract: 0
   dialogue: {fileID: 1267698004}
   camController: {fileID: 0}
+  npcData: {fileID: 11400000, guid: c40251dd6b1cc0742b829134828b766d, type: 2}
 --- !u!135 &1496386407
 SphereCollider:
   m_ObjectHideFlags: 0
