@@ -1,13 +1,26 @@
-﻿title: Demo_Dialogue
+﻿title:loadPhase
 ---
-<<declare $test_bool = false>>
-This is an example of a Yarn Spinner script. Write your dialogue here!
+//when we declare new variable VSCode automatically designates a type, there's no need to hand-code a type.
+<<declare $dialogPhase = "">>
+<<dialogPhaseSetter NPC>>
+<<if $dialogPhase == "start">>
+<<jump Start>>
+<<else>>
+NPC: I don't know what to do. This is an error debug message. Fix your shit.
+<<endif>>
 ===
+
 title: Start
 ---
-<<if $test_bool>>
-Hello, there! Nice to see you! I hope you're enjoying this adventure
-<<else>>
-You did the test already!
-<<endif>>
+<<cam_move NPC_Cam_Rig "npc">>
+NPC: Hi there, good to see you.
+NPC: Not a lot of people come into my house uninvited.
+NPC: But that's OK, I'm pretty chill.
+NPC: While you're here, I actually need some help.
+NPC: Can you help me?
+<<cam_move NPC_Cam_Rig "pc">>
+    ->I can help.
+        <<cam_move NPC_Cam_Rig "return">>
+    ->Not right now.
+        <<cam_move NPC_Cam_Rig "return">>
 ===

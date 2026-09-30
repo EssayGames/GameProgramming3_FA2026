@@ -18,6 +18,15 @@ public class NPC_Interact : MonoBehaviour
     public string interaction;
     public bool canInteract;
     public DialogueRunner dialogue;
+    public NPC_Cam_Control camController;
+    public NPC_Data npcData;
+
+    public void Start()
+    {
+        //this behavior is a bit `static` compared to previous system design techniques
+        //BUT we are making this more `hard-coded` in an attempt to standardize our NPC_Cam_Rig system
+        camController = transform.GetComponentInChildren<NPC_Cam_Control>();
+    }
 
     public void OnTriggerEnter(Collider other)
     {
@@ -51,9 +60,17 @@ public class NPC_Interact : MonoBehaviour
             {
                 Debug.Log("You Talked to the NPC!");
                 setText("");
-                dialogue.StartDialogue("Start");
+                camController.movePlayer();
+                dialogue.StartDialogue(npcData.startingNode);
                 canInteract = false;
             }
         }
+    }
+
+    [YarnCommand("dialogPhaseSetter")]
+    public void setYarnPhase()
+    {
+        InMemoryVariableStorage vData = GameObject.FindAnyObjectByType<InMemoryVariableStorage>();
+        vData.SetValue("$dialogPhase", npcData.currentPhase.ToString());
     }
 }
