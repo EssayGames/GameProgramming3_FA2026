@@ -2,7 +2,30 @@
 ---
 This is an example of a Yarn Spinner script. Write your dialogue here!
 ===
+title:loadPhase
+---
+<<declare $dialogPhase = "">>
+<<setPhase NPC>>
+//the NPC gameObject name called in the <<setPhase>> command should map to the SPECIFIC NPC you want to reference
+//FOR INSTANCE: if you have a particular gameObject NPC that you want this to call from, make sure you're using that gameObject name
+<<if $dialogPhase == "Begin">>
+<<jump Start>>
+<<endif>>
+===
 title: Start
 ---
-Hello, stranger! Nice to meet you!
+<<cam_move NPC_Cam_Rig "npc">>
+Nicholas: Hello there, stranger!
+Nicholas: Nice to see you.
+Nicholas: I have a lil' pickle that I need you to solve.
+Nicholas: Can you help me?
+    <<cam_move NPC_Cam_Rig "pc">>
+    ->Yes I can.
+        <<cam_move NPC_Cam_Rig "npc">>
+        Nicholas: Great news! Thanks a bunch!
+        <<cam_move NPC_Cam_Rig "return">>
+    ->Not right now, old man.
+        <<cam_move NPC_Cam_Rig "npc">>
+        Nicholas: Well... that hurts my feelings.
+        <<cam_move NPC_Cam_Rig "return">>
 ===

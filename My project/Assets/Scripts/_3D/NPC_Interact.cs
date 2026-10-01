@@ -5,17 +5,24 @@ using Yarn.Unity;
 
 public class NPC_Interact : MonoBehaviour
 {
-    //TODO: Prompt the player to interact
-    //TODO: Read the interact button to start dialog
-    //TODO: Lock player movement
-    //TODO: Lock Camera movement
-    //TODO: Read the Yarn Script and activate the desired Node
-    //TODO: UNDO EVERYTHING
+    //TODO: Get storyData to `set` the phase of our Yarn Spinner Scripts
+    //TODO: Set storyData from Yarn Spinner Scripts
+    
 
     public TextMeshProUGUI promtText;
     public string interactText;
     public bool canInteract;
     public DialogueRunner npcDialogue;
+    public NPC_Cam_Rig npc_cam_rig;
+    public npcData storyData;
+
+    public void Start()
+    {
+        //Setting this variable looks a bit `static` for our system design tastes
+        //BUT we can practice a bit of deliberate design because we know we're creating
+        //a systematized NPC rig & interaction for multiple instances
+        npc_cam_rig = transform.GetComponentInChildren<NPC_Cam_Rig>();
+    }
 
     public void OnTriggerEnter(Collider other)
     {
@@ -49,9 +56,17 @@ public class NPC_Interact : MonoBehaviour
             {
                 Debug.Log("Start NPC Dialogue");
                 setText("");
-                npcDialogue.StartDialogue("Start");
+                npc_cam_rig.movePlayer();
+                npcDialogue.StartDialogue(storyData.startingNode);
                 canInteract = false;
             }
         }
+    }
+
+    [YarnCommand("setPhase")]
+    public void setStoryPhase()
+    {
+        InMemoryVariableStorage vStore = GameObject.FindAnyObjectByType<InMemoryVariableStorage>();
+        vStore.SetValue("$dialogPhase", storyData.currentPhase.ToString());
     }
 }

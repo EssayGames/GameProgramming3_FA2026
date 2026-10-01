@@ -128,6 +128,12 @@ public class _GameController : MonoBehaviour
             tpc.enabled = true;
         }
     }
+
+    public void movePlayerOnNPC(Transform newPos)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.transform.position = newPos.position;
+    }
 }
 
 [System.Serializable]
