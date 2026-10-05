@@ -8,4 +8,8 @@ public class NPC_Data : ScriptableObject
     public enum dialogPhase { start, repeat, quest_taken, quest_complete, quest_complete_return }
     public dialogPhase currentPhase;
 
+    public void resetData()
+    {
+        currentPhase = dialogPhase.start;
+    }
 }

@@ -67,10 +67,30 @@ public class NPC_Interact : MonoBehaviour
         }
     }
 
+    //this is the `set` of the current phase of our YS dialog pulled from our npcData variable
     [YarnCommand("dialogPhaseSetter")]
     public void setYarnPhase()
     {
         InMemoryVariableStorage vData = GameObject.FindAnyObjectByType<InMemoryVariableStorage>();
         vData.SetValue("$dialogPhase", npcData.currentPhase.ToString());
+    }
+
+    //this is the `get` of the current phase MADE in our YS dialog based on what options we've selected.
+    [YarnCommand("dialogPhaseGetter")]
+    public void getYarnPhase(string phase)
+    {
+        if(phase == "quest_taken")
+        {
+            npcData.currentPhase = NPC_Data.dialogPhase.quest_taken;
+        }
+        if(phase == "quest_complete_return")
+        {
+            npcData.currentPhase = NPC_Data.dialogPhase.quest_complete_return;
+        }
+    }
+
+    public void OnApplicationQuit()
+    {
+        npcData.resetData();
     }
 }

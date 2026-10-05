@@ -2,9 +2,16 @@
 ---
 //when we declare new variable VSCode automatically designates a type, there's no need to hand-code a type.
 <<declare $dialogPhase = "">>
+<<declare $visitedYet = false>>
 <<dialogPhaseSetter NPC>>
 <<if $dialogPhase == "start">>
 <<jump Start>>
+<<elseif $dialogPhase == "quest_taken">>
+<<jump quest_taken_return>>
+<<elseif $dialogPhase == "quest_complete">>
+<<jump quest_complete>>
+<<elseif $dialogPhase == "quest_complete_return">>
+<<jump quest_complete_return>>
 <<else>>
 NPC: I don't know what to do. This is an error debug message. Fix your shit.
 <<endif>>
@@ -12,6 +19,7 @@ NPC: I don't know what to do. This is an error debug message. Fix your shit.
 
 title: Start
 ---
+<<set $visitedYet to true>>
 <<cam_move NPC_Cam_Rig "npc">>
 NPC: Hi there, good to see you.
 NPC: Not a lot of people come into my house uninvited.
@@ -20,7 +28,36 @@ NPC: While you're here, I actually need some help.
 NPC: Can you help me?
 <<cam_move NPC_Cam_Rig "pc">>
     ->I can help.
+        <<dialogPhaseGetter NPC "quest_taken">>
         <<cam_move NPC_Cam_Rig "return">>
     ->Not right now.
         <<cam_move NPC_Cam_Rig "return">>
+===
+title:quest_taken_return
+---
+<<cam_move NPC_Cam_Rig "npc">>
+NPC: Good to see you again! Did you do the thing I asked you to do?
+    <<cam_move NPC_Cam_Rig "pc">>
+    ->Nope.
+        <<cam_move NPC_Cam_Rig "return">>
+===
+title:quest_complete
+---
+<<if $visitedYet == false>>
+<<set $visitedYet to true>>
+NPC: Oh! Look what you got there, it's just the thing I needed.
+NPC: Can I take that off your hands, I really need it!
+    ->Sure!
+        <<dialogPhaseGetter NPC "quest_complete_return">>
+        NPC: Thanks pal.
+<<else>>
+NPC: Hey again, did you get the thing I asked for?
+    ->Sure did!
+        <<dialogPhaseGetter NPC "quest_complete_return">>
+        OMG, tysm.
+<<endif>>
+===
+title:quest_complete_return
+---
+NPC: Thanks again for your help. I love you.
 ===
