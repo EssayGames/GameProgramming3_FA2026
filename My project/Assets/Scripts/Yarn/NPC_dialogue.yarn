@@ -1,11 +1,42 @@
-﻿title: NPC_dialogue
+﻿title: Start
 ---
-This is an example of a Yarn Spinner script. Write your dialogue here!
+<<declare $dialogPhase = "" >>
+<<setPhaseToYarn NPC>>
+<<jump load_phase>>
 ===
-
-title: Start
+title:load_phase
 ---
-Hello! Nice to meet you.
-->Cool!
-That's Right, it's great!
+<<if $dialogPhase == "start">>
+<<jump first_encounter>>
+<<elseif $dialogPhase == "quest_taken">>
+<<jump taken_quest>>
+<<elseif $dialogPhase == "">>
+ERROR -- I don't know what to do!
+<<endif>>
+===
+title:first_encounter
+---
+<<cam_move NPC_CAM_Prefab "npc">>
+NPC: Hello! Nice to meet you.
+NPC: I don't get many strangers around here.
+NPC: But you look like a very helpful person.
+NPC: Would you be interesting in helping me?
+NPC: I can reward you for your time.
+NPC: Whatd'ya say?
+<<cam_move NPC_CAM_Prefab "pc">>
+    ->I can help!
+        <<cam_move NPC_CAM_Prefab "npc">>
+        Great! Come back when the job is done.
+        <<cam_move NPC_CAM_Prefab "return">>
+        <<setPhaseFromYarn NPC "quest_taken">>
+    ->Not right now.
+        <<cam_move NPC_CAM_Prefab "npc">>
+        OK, fine, talk later.
+        <<cam_move NPC_CAM_Prefab "return">>
+===
+title:taken_quest
+---
+<<cam_move NPC_CAM_Prefab "npc">>
+NPC: Hey again, good to see you! Doesn't look like you finished what I asked for just yet.
+NPC: Come back when you've finsihed what you started.
 ===
