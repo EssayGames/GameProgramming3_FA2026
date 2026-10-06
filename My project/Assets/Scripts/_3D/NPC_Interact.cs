@@ -63,10 +63,36 @@ public class NPC_Interact : MonoBehaviour
         }
     }
 
+    //This yarn command / method `sets` the $dialogPhase variable in my YarnSpinner script.
+    //We use this in our `loadPhase` node to route the YarnSpinner script to it's correct story path.
     [YarnCommand("setPhase")]
     public void setStoryPhase()
     {
         InMemoryVariableStorage vStore = GameObject.FindAnyObjectByType<InMemoryVariableStorage>();
         vStore.SetValue("$dialogPhase", storyData.currentPhase.ToString());
+    }
+
+    //This yarn command / method `gets` a string from YarnSpinner and "converts" that to the phase we're on in our npcData scriableObject;
+    //It also contains a nice lil' error reporting in case we pass a string that does not correspond to any dialogPhase.
+    [YarnCommand("getPhase")]
+    public void getStoryPhase(string phase)
+    {
+        if(phase == "comeback")
+        {
+            storyData.currentPhase = npcData.dialogPhase.comeback;
+        }
+        else if(phase == "quest_completed")
+        {
+            storyData.currentPhase = npcData.dialogPhase.quest_completed;
+        }
+        else
+        {
+            Debug.LogError("The string you passed in the Yarn Script does not match any current dialogPhase in the npcData scriptableObject");
+        }
+    }
+
+    public void OnApplicationQuit()
+    {
+        storyData.dataReset();
     }
 }

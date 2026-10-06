@@ -7,4 +7,9 @@ public class npcData : ScriptableObject
     public string startingNode;
     public enum dialogPhase { comeback, begin, quest_started, quest_completed, reward_given, }
     public dialogPhase currentPhase;
+
+    public void dataReset()
+    {
+        currentPhase = dialogPhase.begin;
+    }
 }

@@ -5,16 +5,24 @@ This is an example of a Yarn Spinner script. Write your dialogue here!
 title:loadPhase
 ---
 <<declare $dialogPhase = "">>
+<<declare $hasVisited = false>>
 <<setPhase NPC>>
 //the NPC gameObject name called in the <<setPhase>> command should map to the SPECIFIC NPC you want to reference
 //FOR INSTANCE: if you have a particular gameObject NPC that you want this to call from, make sure you're using that gameObject name
-<<if $dialogPhase == "Begin">>
+<<if $dialogPhase == "begin">>
 <<jump Start>>
+<<elseif $dialogPhase == "comeback">>
+<<jump comeback>>
+<<elseif $dialogPhase == "quest_completed">>
+<<jump doneWithQuest>>
+<<else>>
+Nicholas: I'm not sure *what's* going on, but you dun' fucked up.
 <<endif>>
 ===
 title: Start
 ---
 <<cam_move NPC_Cam_Rig "npc">>
+<<set $hasVisited to true>>
 Nicholas: Hello there, stranger!
 Nicholas: Nice to see you.
 Nicholas: I have a lil' pickle that I need you to solve.
@@ -25,7 +33,27 @@ Nicholas: Can you help me?
         Nicholas: Great news! Thanks a bunch!
         <<cam_move NPC_Cam_Rig "return">>
     ->Not right now, old man.
+        <<getPhase NPC "comeback">>
         <<cam_move NPC_Cam_Rig "npc">>
         Nicholas: Well... that hurts my feelings.
         <<cam_move NPC_Cam_Rig "return">>
+===
+title:comeback
+---
+Nichoals: Hey you're back! Did you change your mind?
+Nicholas: Please, help me....!
+    ->OK fine....
+===
+title:doneWithQuest
+---
+<<if $hasVisited == true>>
+Nicholas: Did you finish the task I asked you to do?
+    ->Sure did, hoss!
+        Nicholas: That's great. I love you.
+<<else>>
+Nicholas: Heya! I see that you've got an item I've been looking for.
+Nicholas: Can I take that off of your hands?
+    ->Yeah, go for it pops!
+        Nicholas: Gosh, you're the best. I love you.
+<<endif>>
 ===
