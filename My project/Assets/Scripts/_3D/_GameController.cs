@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using Yarn.Unity;
 
 public class _GameController : MonoBehaviour
 {
@@ -61,6 +62,11 @@ public class _GameController : MonoBehaviour
             }
 
             loadCoins();
+        }
+        else if(scene.buildIndex == 1)
+        {
+            DialogueRunner dRun = GameObject.FindAnyObjectByType<DialogueRunner>();
+            dRun.onDialogueStart.AddListener(() => setPlayerMovement(true));
         }
     }
 
