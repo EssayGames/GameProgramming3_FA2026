@@ -1,26 +1,81 @@
 using JetBrains.Annotations;
 using TMPro;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Yarn.Unity;
 
 
+public enum i_type { npc, item}
+
 public class NPC_interact : MonoBehaviour
 {
-    public TextMeshProUGUI UIText;
-    public string interactText;
-    public bool canInteract = false;
-    public DialogueRunner npcDialogue;
-    public GameObject npcCam;
-    public NPC_Data npcData;
+    [Tooltip("Type of Interaction")]
+    public i_type type;
+    //The type not only determines the kind of object interaction
+    //it will also modify the actual layout of inspector component
+    //for full extandable/flexibility log determine what `type` needs to be implemented
+
+
+    [System.Serializable]
+    public struct TextData
+    {
+        public TextMeshProUGUI UIText;
+        public string interactText;
+    }
+
+    [Header("Text Display Data")]
+    public TextData textData;
+    
+    [System.Serializable]
+    public struct InteractionYSData
+    {
+        public bool canInteract;
+        public DialogueRunner npcDialogue;
+        public NPC_Data npcData;
+
+    }
+    [Header("Collision, YarnSpinner, & NPC Data")]
+    public InteractionYSData storyData;
+
+    [System.Serializable]
+    public struct CamData
+    {
+        public GameObject npcCam;
+        public GameObject npcCamPrefab;
+    }
+
+    public CamData camData;
+
+    public void setNpcCam()
+    {
+        camData.npcCam = transform.GetChild(0).gameObject;
+    }
+
+    public void loadNpcCam()
+    {
+        //need to add check to see if npcCamPrefab is already loaded
+        Instantiate(camData.npcCamPrefab, transform);
+
+    }
+
+    public void loadTextObj()
+    {
+        textData.UIText = GameObject.FindGameObjectWithTag("iText").GetComponent<TextMeshProUGUI>();
+    }
+
+    public void loadYS()
+    {
+        storyData.npcDialogue = GameObject.FindGameObjectWithTag("dialogueRunner").GetComponent<DialogueRunner>();
+    }
 
     public void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")
         {
-            setText(interactText);
-            canInteract = true;
+            setText(textData.interactText);
+            storyData.canInteract = true;
         }
     }
     public void OnTriggerExit(Collider other)
@@ -28,28 +83,28 @@ public class NPC_interact : MonoBehaviour
        if(other.gameObject.tag == "Player")
         {
             setText("");
-            canInteract = false;
+            storyData.canInteract = false;
         }
     }
 
     public void setText (string txt)
     {
-        UIText.text = txt;
+        textData.UIText.text = txt;
     }
 
     
     public void Update()
     {
-        if (canInteract)
+        if (storyData.canInteract)
         {
             if (Keyboard.current.eKey.wasPressedThisFrame)
             {
                 Debug.Log("Started Talking");
                 setText("");
-                npcDialogue.StartDialogue(npcData.dialogStart);
+                storyData.npcDialogue.StartDialogue(storyData.npcData.dialogStart);
                 //movePlayer puts the player in the correct position
-                npcCam.GetComponent<NPC_CAM>().movePlayer();
-                canInteract = false;
+                camData.npcCam.GetComponent<NPC_CAM>().movePlayer();
+                storyData.canInteract = false;
             }
         }
     }
@@ -59,7 +114,7 @@ public class NPC_interact : MonoBehaviour
     {
         if(phase == "quest_taken")
         {
-            npcData.selectPhase = NPC_Data.dialogPhase.quest_taken;
+            storyData.npcData.selectPhase = NPC_Data.dialogPhase.quest_taken;
         }
     }
 
@@ -67,11 +122,11 @@ public class NPC_interact : MonoBehaviour
     public void setYarnPhase()
     {
         InMemoryVariableStorage vStore = GameObject.FindAnyObjectByType<InMemoryVariableStorage>();
-        vStore.SetValue("$dialogPhase", npcData.selectPhase.ToString());
+        vStore.SetValue("$dialogPhase", storyData.npcData.selectPhase.ToString());
     }
 
     public void OnApplicationQuit()
     {
-        npcData.Reset();
+        storyData.npcData.Reset();
     }
 }
