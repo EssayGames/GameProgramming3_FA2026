@@ -5,7 +5,7 @@ using Yarn.Unity;
 
 public enum iType { npc, item }
 
-public class NPC_Interact : MonoBehaviour
+public class _NPC_Interact : MonoBehaviour
 {
     //TODO: Get storyData to `set` the phase of our Yarn Spinner Scripts
     //TODO: Set storyData from Yarn Spinner Scripts
@@ -31,7 +31,7 @@ public class NPC_Interact : MonoBehaviour
     public struct CamData
     {
         public GameObject npcCamPrefab;
-        public NPC_Cam_Rig npc_cam_rig;
+        public NPC_Cam_Control npc_cam_rig;
 
     }
     [Header("Camera Variables")]
@@ -41,7 +41,7 @@ public class NPC_Interact : MonoBehaviour
     public struct dialogData
     {
         public DialogueRunner npcDialogue;
-        public npcData storyData;
+        public NPC_Data storyData;
 
     }
     [Header("Dialog & NPC Data Variables")]
@@ -70,7 +70,7 @@ public class NPC_Interact : MonoBehaviour
 
     public void setNpcCam()
     {
-        camData.npc_cam_rig = transform.GetComponentInChildren<NPC_Cam_Rig>();
+        camData.npc_cam_rig = transform.GetComponentInChildren<NPC_Cam_Control>();
     }
 
     public void setYS()
@@ -135,11 +135,11 @@ public class NPC_Interact : MonoBehaviour
     {
         if(phase == "comeback")
         {
-            dialogVars.storyData.currentPhase = npcData.dialogPhase.comeback;
+            dialogVars.storyData.currentPhase = NPC_Data.dialogPhase.repeat;
         }
         else if(phase == "quest_completed")
         {
-            dialogVars.storyData.currentPhase = npcData.dialogPhase.quest_completed;
+            dialogVars.storyData.currentPhase = NPC_Data.dialogPhase.quest_complete;
         }
         else
         {
@@ -149,6 +149,6 @@ public class NPC_Interact : MonoBehaviour
 
     public void OnApplicationQuit()
     {
-        dialogVars.storyData.dataReset();
+        dialogVars.storyData.resetData();
     }
 }

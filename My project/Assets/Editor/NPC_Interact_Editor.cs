@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(NPC_Interact))]
+[CustomEditor(typeof(_NPC_Interact))]
 public class NPC_Interact_Editor : Editor
 {
     public override void OnInspectorGUI()
@@ -27,7 +27,7 @@ public class NPC_Interact_Editor : Editor
 
         //load the class we want to modify/change
         //so that we can call the methods from that class in our editor layout
-        NPC_Interact npcI = (NPC_Interact)target;
+        _NPC_Interact npcI = (_NPC_Interact)target;
 
         //if statements in Editor Scripts "generate" GUILayout elements instead of "checking" to see that they exist
         //the logic below does not query a condition, but instead makes the condition true by default
