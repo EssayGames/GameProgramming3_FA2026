@@ -28,6 +28,19 @@ public class _NPC_Interact : MonoBehaviour
     public bool canInteract;
 
     [System.Serializable]
+<<<<<<< Updated upstream:My project/Assets/Scripts/_3D/_NPC_Interact.cs
+=======
+    public struct DialogueData
+    {
+        public DialogueRunner npcDialogue;
+        public npcData storyData;
+        public npcStateCheck stateCheck;
+    }
+    [Header("Story & YarnSpinner Variables")]
+    public DialogueData dialogueData;
+
+    [System.Serializable]
+>>>>>>> Stashed changes:My project/Assets/Scripts/_3D/NPC_Interact.cs
     public struct CamData
     {
         public GameObject npcCamPrefab;
@@ -112,8 +125,15 @@ public class _NPC_Interact : MonoBehaviour
             {
                 Debug.Log("Start NPC Dialogue");
                 setText("");
+<<<<<<< Updated upstream:My project/Assets/Scripts/_3D/_NPC_Interact.cs
                 camData.npc_cam_rig.movePlayer();
                 dialogVars.npcDialogue.StartDialogue(dialogVars.storyData.startingNode);
+=======
+                pState currentState = GameObject.FindGameObjectWithTag("Player").GetComponent<playerStateMachine>().state;
+                //camData.npc_cam_rig.movePlayer();
+                //dialogueData.npcDialogue.StartDialogue(dialogueData.storyData.startingNode);
+                dialogueData.npcDialogue.StartDialogue(dialogueData.stateCheck.getState(currentState));
+>>>>>>> Stashed changes:My project/Assets/Scripts/_3D/NPC_Interact.cs
                 canInteract = false;
             }
         }
