@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEditor;
 
-[CustomEditor(typeof(NPC_interact))]
+[CustomEditor(typeof(NPC_Interact))]
 public class custom_NPCI : Editor
 {
     public override void OnInspectorGUI()
@@ -14,9 +14,9 @@ public class custom_NPCI : Editor
         SerializedProperty typeProp = serializedObject.FindProperty("type");
         EditorGUILayout.PropertyField(typeProp);
 
-        i_type currentType = (i_type)typeProp.enumValueIndex;
+        iType currentType = (iType)typeProp.enumValueIndex;
 
-        if(currentType == i_type.npc)
+        if(currentType == iType.npc)
         {
             EditorGUILayout.PropertyField(serializedObject.FindProperty("camData"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("textData"));
@@ -25,18 +25,14 @@ public class custom_NPCI : Editor
 
             GUILayout.Space(15);
 
-            NPC_interact npcI = (NPC_interact)target;
-            if (GUILayout.Button("Create NPC Cam Rig"))
-            {
-                npcI.loadNpcCam();
-            }
-            else if (GUILayout.Button("Set NPC Cam"))
+            NPC_Interact npcI = (NPC_Interact)target;
+            if (GUILayout.Button("Set NPC Cam"))
             {
                 npcI.setNpcCam();
             }
             else if (GUILayout.Button("Get Text Prompt Obj"))
             {
-                npcI.loadTextObj();
+                npcI.loadText();
             }
             else if (GUILayout.Button("Get Yarn Spinner Dialog Runner"))
             {
@@ -44,7 +40,7 @@ public class custom_NPCI : Editor
             }
             
         }
-        else if (currentType == i_type.item)
+        else if (currentType == iType.item)
         {
 
         }

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 [Serializable]
 public class shopItemData : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
-    public Potions_so pData;
+    public potions_so pData;
     public TextMeshProUGUI infoText;
     public Transform lastPos;
 

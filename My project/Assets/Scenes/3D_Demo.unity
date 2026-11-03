@@ -22971,7 +22971,7 @@ PrefabInstance:
     - target: {fileID: 8309902628685535410, guid: 52571f68872914e24837210513edea1d, type: 3}
       propertyPath: yarnProject
       value: 
-      objectReference: {fileID: 7545569452688597077, guid: 7519257df3a83ad429bef9170386cdbd, type: 3}
+      objectReference: {fileID: 7545569452688597077, guid: 0834d5058b3d6284b880c8152c3fddd9, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

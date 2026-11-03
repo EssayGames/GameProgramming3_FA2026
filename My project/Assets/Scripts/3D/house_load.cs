@@ -6,7 +6,7 @@ public class house_load : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameController.instance.loadFPS(loadLoc.position, loadLoc.rotation);
+        GameController.instance.SpawnCharacter(loadLoc.position, loadLoc.rotation);
     }
 
 }

@@ -6,7 +6,7 @@ using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
-    public List<Potions_so> allPotions;
+    public List<potions_so> allPotions;
     public int shopAmt;
     public GameObject shopContainer;
     public GameObject infoContainer;

@@ -8,7 +8,7 @@ public class house_enter : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            GameController.instance.setMainLoc(entry);
+            GameController.instance.setSpawnPoint(entry.position, entry.rotation);
             SceneManager.LoadScene(1);
         }
     }

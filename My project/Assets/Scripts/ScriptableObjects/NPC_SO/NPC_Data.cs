@@ -5,12 +5,12 @@ using Yarn.Unity;
 public class NPC_Data : ScriptableObject
 {
     public string dialogStart;
-    public enum dialogPhase { start, quest_taken, quest_complete, reward_given}
-    public dialogPhase selectPhase;
+    public enum dialogPhase { start, quest_taken, quest_complete, reward_given, repeat}
+    public dialogPhase currentPhase;
 
-    public void Reset()
+    public void resetData()
     {
-        selectPhase = dialogPhase.start;
+        currentPhase = dialogPhase.start;
     }
 
 }

@@ -17,7 +17,7 @@ public class Inventroy : MonoBehaviour, IDropHandler
 
         //purchase is a UnityEvent that takes an int argument
         //when invoked we transmite the price of pData
-        purchase.Invoke(droppedData.pData.price);
+        purchase.Invoke(droppedData.pData.cost);
 
 
         //wallet.updateMoney(droppedData.pData.price);

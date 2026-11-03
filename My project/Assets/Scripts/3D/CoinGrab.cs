@@ -21,7 +21,7 @@ public class CoinGrab : MonoBehaviour
 
     public void collectCoin()
     {
-        GameController.instance.updateCoins(coinID);
+        GameController.instance.coinCollect(coinID);
         this.GetComponent<MeshRenderer>().enabled = false;
         this.GetComponent<SphereCollider>().enabled = false;
         this.GetComponent<MeshCollider>().enabled = false;
