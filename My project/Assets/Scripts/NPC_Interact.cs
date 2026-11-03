@@ -3,40 +3,102 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Yarn.Unity;
 
+public enum iType { npc, item }
+
 public class NPC_Interact : MonoBehaviour
 {
-    //FINISHED: Check to see if the player is in the trigger radius
-    //FINISHED: Activate the interaction text
-    //FINISHED: Check if the player is in the trigger when they press the interaction key
-    //FINISHED: Activate Yarn Spinner -- or our DialogRunner
-    //FINISHED: Checking Player Controller for movement
-    //FINISHED: Player movement is disabled
+    //TODO: Get storyData to `set` the phase of our Yarn Spinner Scripts
+    //TODO: Set storyData from Yarn Spinner Scripts
 
-    //PARTIALLY FINISHED: `limit` (and eventually control) camera movement
+    [Tooltip("Set the type of interaction to load the correct variables.")]
+    public iType type;
 
-    public TextMeshProUGUI interactText;
-    public string interaction;
+    //We changed our variables to be grouped within `struct`s for visual clarity
+    //and also to be able to call those groupings a little easier in our custom editor script
+    [System.Serializable]
+    public struct TextData
+    {
+        public TextMeshProUGUI promtText;
+        public string interactText;
+    }
+
+    [Header("Text Display Variables")]
+    public TextData textData;
+
     public bool canInteract;
-    public DialogueRunner dialogue;
-    public NPC_Cam_Control camController;
-    public NPC_Data npcData;
+
+    [System.Serializable]
+    public struct DialogueData
+    {
+        public DialogueRunner npcDialogue;
+        public NPC_Data storyData;
+        public npcStateCheck stateCheck;
+    }
+    [Header("Story & YarnSpinner Variables")]
+    public DialogueData dialogueData;
+
+    [System.Serializable]
+    public struct CamData
+    {
+        public GameObject npcCamPrefab;
+        public NPC_Cam_Control npc_cam_rig;
+
+    }
+    [Header("Camera Variables")]
+    public CamData camData;
+
+    [System.Serializable]
+    public struct dialogData
+    {
+        public DialogueRunner npcDialogue;
+        public NPC_Data storyData;
+
+    }
+    [Header("Dialog & NPC Data Variables")]
+    public dialogData dialogVars;
 
     public void Start()
     {
-        //this behavior is a bit `static` compared to previous system design techniques
-        //BUT we are making this more `hard-coded` in an attempt to standardize our NPC_Cam_Rig system
-        camController = transform.GetComponentInChildren<NPC_Cam_Control>();
+        //Setting this variable looks a bit `static` for our system design tastes
+        //BUT we can practice a bit of deliberate design because we know we're creating
+        //a systematized NPC rig & interaction for multiple instances
+        
+        //npc_cam_rig = transform.GetComponentInChildren<NPC_Cam_Rig>();
     }
+
+    //----EDITOR FUNCTIONS START----//
+
+    public void loadText()
+    {
+        textData.promtText = GameObject.FindGameObjectWithTag("pText").GetComponent<TextMeshProUGUI>();
+    }
+
+    public void loadNpcCamPrefab()
+    {
+        Instantiate(camData.npcCamPrefab, transform);
+    }
+
+    public void setNpcCam()
+    {
+        camData.npc_cam_rig = transform.GetComponentInChildren<NPC_Cam_Control>();
+    }
+
+    public void loadYS()
+    {
+        dialogVars.npcDialogue = GameObject.FindGameObjectWithTag("dRunner").GetComponent<DialogueRunner>();
+    }
+
+    //----EDITOR FUNCTIONS COMPLETE----//
 
     public void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")
         {
-            setText(interaction);
+            setText(textData.interactText);
             canInteract = true;
         }
     }
-
+    
     public void OnTriggerExit(Collider other)
     {
         if(other.gameObject.tag == "Player")
@@ -46,51 +108,59 @@ public class NPC_Interact : MonoBehaviour
         }
     }
 
-    //this is the setter method for our interact text
     public void setText(string txt)
     {
-        interactText.text = txt;
+        textData.promtText.text = txt;
     }
 
-    public void Update()
+    // Update is called once per frame
+    void Update()
     {
         if (canInteract)
         {
             if (Keyboard.current.eKey.wasPressedThisFrame)
             {
-                Debug.Log("You Talked to the NPC!");
+                Debug.Log("Start NPC Dialogue");
                 setText("");
-                camController.movePlayer();
-                dialogue.StartDialogue(npcData.startingNode);
+                pState currentState = GameObject.FindGameObjectWithTag("Player").GetComponent<playerStateMachine>().state;
+                //camData.npc_cam_rig.movePlayer();
+                //dialogueData.npcDialogue.StartDialogue(dialogueData.storyData.startingNode);
+                dialogueData.npcDialogue.StartDialogue(dialogueData.stateCheck.getState(currentState));
                 canInteract = false;
             }
         }
     }
 
-    //this is the `set` of the current phase of our YS dialog pulled from our npcData variable
-    [YarnCommand("dialogPhaseSetter")]
-    public void setYarnPhase()
+    //This yarn command / method `sets` the $dialogPhase variable in my YarnSpinner script.
+    //We use this in our `loadPhase` node to route the YarnSpinner script to it's correct story path.
+    [YarnCommand("setPhase")]
+    public void setStoryPhase()
     {
-        InMemoryVariableStorage vData = GameObject.FindAnyObjectByType<InMemoryVariableStorage>();
-        vData.SetValue("$dialogPhase", npcData.currentPhase.ToString());
+        InMemoryVariableStorage vStore = GameObject.FindAnyObjectByType<InMemoryVariableStorage>();
+        vStore.SetValue("$dialogPhase", dialogVars.storyData.currentPhase.ToString());
     }
 
-    //this is the `get` of the current phase MADE in our YS dialog based on what options we've selected.
-    [YarnCommand("dialogPhaseGetter")]
-    public void getYarnPhase(string phase)
+    //This yarn command / method `gets` a string from YarnSpinner and "converts" that to the phase we're on in our npcData scriableObject;
+    //It also contains a nice lil' error reporting in case we pass a string that does not correspond to any dialogPhase.
+    [YarnCommand("getPhase")]
+    public void getStoryPhase(string phase)
     {
-        if(phase == "quest_taken")
+        if(phase == "comeback")
         {
-            npcData.currentPhase = NPC_Data.dialogPhase.quest_taken;
+            dialogVars.storyData.currentPhase = NPC_Data.dialogPhase.repeat;
         }
-        if(phase == "quest_complete_return")
+        else if(phase == "quest_completed")
         {
-            npcData.currentPhase = NPC_Data.dialogPhase.quest_complete_return;
+            dialogVars.storyData.currentPhase = NPC_Data.dialogPhase.quest_complete;
+        }
+        else
+        {
+            Debug.LogError("The string you passed in the Yarn Script does not match any current dialogPhase in the npcData scriptableObject");
         }
     }
 
     public void OnApplicationQuit()
     {
-        npcData.resetData();
+        dialogVars.storyData.resetData();
     }
 }
