@@ -44,7 +44,7 @@ public class boxes_Interact : MonoBehaviour
         {
             if (Keyboard.current.eKey.wasPressedThisFrame)
             {
-                npcI.dialogVars.npcData.currentPhase = NPC_Data.dialogPhase.quest_complete;
+                npcI.dialogueData.storyData.currentPhase = NPC_Data.dialogPhase.quest_complete;
                 canInteract = false;
             }
         }

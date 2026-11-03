@@ -61,10 +61,6 @@ public class GameController : MonoBehaviour
 
             loadCoins();
         }
-        else
-        {
-            SpawnCharacter(startingLoc.position, startingLoc.rotation);
-        }
     }
 
     public void SpawnCharacter(Vector3 loc, Quaternion rot)

@@ -1,60 +1,60 @@
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
+using Yarn;
 
+//the below attribute for this class ensures that this editor script affects the NPC_Interact class
 [CustomEditor(typeof(NPC_Interact))]
-public class NPC_Interact_Editor : Editor
+public class customNPC_Interact : Editor
 {
     public override void OnInspectorGUI()
     {
-        //"draw" (meaning display on screen) the default inspector of our NPC_Interact Class
-        //(or whatever class this custom editor is affecting
+        //this built-in method "draws" the inspector as it normally would be viewed
+        //"draw" in this instance means to visually render in the editor
         //DrawDefaultInspector();
-        //EditorGUILayout.HelpBox("Reminder: Load in the NPC Cam Prefab first, before trying to generate & assign variable", MessageType.Info);
 
-        //we are loading a SerializedProperty tmp variable called `typeProp`
-        //and we are loading in the `type` property from our NPC_Interact class
+        //This build-in method on this object will continue to "draw" the editor code within this OnInspectorGUI method
+        serializedObject.Update();
+
         SerializedProperty typeProp = serializedObject.FindProperty("type");
         EditorGUILayout.PropertyField(typeProp);
 
-        interactType currentType = (interactType)typeProp.enumValueIndex;
+        iType currentType = (iType)typeProp.enumValueIndex;
 
-        if(currentType == interactType.npc)
+        if(currentType == iType.npc)
         {
+            NPC_Interact npcI = (NPC_Interact)target;
+            
+            //"draw" properties/variables associated with this interaction type
             EditorGUILayout.PropertyField(serializedObject.FindProperty("textData"));
-            EditorGUILayout.HelpBox("Don't forget to write the string you want to display when interacting", MessageType.Info);
+            EditorGUILayout.HelpBox("Warning: Make sure to write the Prompt Text String before entering playmode", MessageType.Warning);
+            if(GUILayout.Button("Load Prompt Text"))
+            {
+                npcI.loadText();
+            }
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("dialogueData"));
+            if(GUILayout.Button("Load Yarn Spinner Dialog Runner"))
+            {
+                npcI.loadYS();
+            }
+
             EditorGUILayout.PropertyField(serializedObject.FindProperty("camData"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("dialogVars"));
-            EditorGUILayout.HelpBox("You must manually load the correct NPC_Data Scriptable Object", MessageType.Warning);
+            EditorGUILayout.HelpBox("Manually Load the NPC_Cam_Prefab before Instantiating in Scene", MessageType.Info);
+            if(GUILayout.Button("Instantiate NPC Cam Prefab"))
+            {
+                npcI.loadNpcCamPrefab();
+            }
+            //to affect and add to the inspector, we need to gain access to the methods in the NPC_Interact class
+            //the below line of code, grants us access to those methods using a temporary variable "npcI"
 
+            //for an editor script if we're using an IF statement with GUILayout as the condition
+            //then the editor will generate that button as opposed to check to see if the condition is true
         }
 
-        GUILayout.Space(10);
-
-        //load the class we want to modify/change
-        //so that we can call the methods from that class in our editor layout
-        NPC_Interact npcI = (NPC_Interact)target;
-
-        //if statements in Editor Scripts "generate" GUILayout elements instead of "checking" to see that they exist
-        //the logic below does not query a condition, but instead makes the condition true by default
-        if (GUILayout.Button("Set Interact Text Object"))
-        {
-            //use the npcI variable called above to call the setTextVars method in the editor/inspector
-            npcI.setTextVars();
-        }
-        else if(GUILayout.Button("Set YarnSpinner Dialog Runner"))
-        {
-            npcI.setYS();
-        }
-        else if(GUILayout.Button("Load NPC Cam Prefab"))
-        {
-            npcI.loadNpcCamPrefab();
-        }
-        else if(GUILayout.Button("Set NPC Cam Variable"))
-        {
-            npcI.setNpcCam();
-        }
-
+        //ESSENTIAL LINE OF CODE to make sure we can edit the properties/variables of our class
+        //without this ApplyModifiedProperties method, we won't be able to add any data to our variables
         serializedObject.ApplyModifiedProperties();
+
 
     }
 }
