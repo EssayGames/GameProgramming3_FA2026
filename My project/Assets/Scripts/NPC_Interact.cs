@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Yarn.Unity;
 
-public enum iType { npc, item }
+public enum iType { npc_quest, npc_items, npc_simple, item }
 
 public class NPC_Interact : MonoBehaviour
 {
@@ -122,10 +122,21 @@ public class NPC_Interact : MonoBehaviour
             {
                 Debug.Log("Start NPC Dialogue");
                 setText("");
-                pState currentState = GameObject.FindGameObjectWithTag("Player").GetComponent<playerStateMachine>().state;
-                //camData.npc_cam_rig.movePlayer();
-                //dialogueData.npcDialogue.StartDialogue(dialogueData.storyData.startingNode);
-                dialogueData.npcDialogue.StartDialogue(dialogueData.stateCheck.getState(currentState));
+                if(type == iType.npc_quest)
+                {
+                    camData.npc_cam_rig.movePlayer();
+                    dialogueData.npcDialogue.StartDialogue(dialogueData.storyData.dialogStart);
+                }
+                else if(type == iType.npc_simple)
+                {
+                    pState currentState = GameObject.FindGameObjectWithTag("Player").GetComponent<playerStateMachine>().state;
+                    string nodeName = dialogueData.stateCheck.getState(currentState);
+                    dialogueData.npcDialogue.StartDialogue(nodeName);
+                }
+                else if(type == iType.npc_items)
+                {
+
+                }
                 canInteract = false;
             }
         }

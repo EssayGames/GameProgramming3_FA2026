@@ -20,7 +20,7 @@ public class customNPC_Interact : Editor
 
         iType currentType = (iType)typeProp.enumValueIndex;
 
-        if(currentType == iType.npc)
+        if(currentType == iType.npc_quest)
         {
             NPC_Interact npcI = (NPC_Interact)target;
             
@@ -49,6 +49,23 @@ public class customNPC_Interact : Editor
 
             //for an editor script if we're using an IF statement with GUILayout as the condition
             //then the editor will generate that button as opposed to check to see if the condition is true
+        }
+        else if (currentType == iType.npc_simple || currentType == iType.npc_items)
+        {
+            NPC_Interact npcI = (NPC_Interact)target;
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("textData"));
+            EditorGUILayout.HelpBox("Warning: Make sure to write the Prompt Text String before entering playmode", MessageType.Warning);
+            if (GUILayout.Button("Load Prompt Text"))
+            {
+                npcI.loadText();
+            }
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("dialogueData"));
+            EditorGUILayout.HelpBox("Warning: NPC Data not required for this interaction type", MessageType.Warning);
+            if (GUILayout.Button("Load Yarn Spinner Dialog Runner"))
+            {
+                npcI.loadYS();
+            }
+
         }
 
         //ESSENTIAL LINE OF CODE to make sure we can edit the properties/variables of our class
