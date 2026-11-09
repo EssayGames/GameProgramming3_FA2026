@@ -10,7 +10,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
-      "version": "1.8.30",
+      "version": "1.8.29",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -143,7 +143,7 @@
       }
     },
     "com.unity.searcher": {
-      "version": "4.9.5",
+      "version": "4.9.4",
       "depth": 2,
       "source": "registry",
       "dependencies": {},
