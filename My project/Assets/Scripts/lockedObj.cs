@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class lockedObj : MonoBehaviour, iKeyHandler
 {
@@ -46,5 +47,19 @@ public class lockedObj : MonoBehaviour, iKeyHandler
     public void setText(string txt)
     {
         interactPrompt.text = txt;
+    }
+
+    public void Update()
+    {
+        if (canInteract)
+        {
+            if (Keyboard.current.eKey.wasPressedThisFrame)
+            {
+                setText("");
+                keyInvetoryManager.instance.usedKey();
+                canInteract = false;
+                Debug.Log("You opened the Treasure Chest");
+            }
+        }
     }
 }
