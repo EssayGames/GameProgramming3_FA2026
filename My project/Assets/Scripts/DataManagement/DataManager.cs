@@ -6,6 +6,10 @@ public class DataManager : MonoBehaviour
     public static DataManager instance { get; private set;  }
     private GameData gameData;
     private List<IDataHandler> dataObjs = new List<IDataHandler>();
+    private FileDataManager fileSystem;
+
+    [SerializeField]
+    private string fileName;
 
     public void Awake()
     {
@@ -22,7 +26,11 @@ public class DataManager : MonoBehaviour
 
     public void Start()
     {
+        //we set the fileSystem variable to the persistentDataPath and filename strings
+        //using the constructor of the FileDataManager class
+        this.fileSystem = new FileDataManager(Application.persistentDataPath, fileName);
         getAllDataObjs();
+        LoadGame();
     }
 
     public void getAllDataObjs()
@@ -48,11 +56,19 @@ public class DataManager : MonoBehaviour
     {
         //TODO: The FileSystem class deserialize our gameData and load into this class
 
+        if(this.gameData == null)
+        {
+            Debug.Log("No Game Data Found. Loading default data from class constructor.");
+            NewGame();
+        }
+
         //TODO: Push the gameData to all of our interface instances
         foreach(IDataHandler dataHandler in dataObjs)
         {
             dataHandler.LoadData(gameData);
         }
+
+        Debug.Log("Loaded Player Position: " + gameData.playerPos.ToString());
     }
 
     public void SaveGame()
@@ -63,7 +79,10 @@ public class DataManager : MonoBehaviour
             dataHandler.SaveData(ref gameData);
         }
 
+        Debug.Log("Saved Player Position: " + gameData.playerPos.ToString());
+
         //TODO: Use The FileSystem class to serialize our gameData into a JSON File
+        fileSystem.SaveFile(gameData);
     }
 
     public void OnApplicationQuit()
