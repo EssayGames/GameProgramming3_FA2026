@@ -54,6 +54,7 @@ public class DataManager : MonoBehaviour
     public void LoadGame()
     {
         // TODO: Use the file writing system to deserialize the stored game data on my computer and load into this class
+        this.gameData = fileManager.LoadFile();
 
         if(this.gameData == null)
         {
@@ -64,6 +65,11 @@ public class DataManager : MonoBehaviour
         Debug.Log("Loaded Player Position: " + gameData.playerPos.ToString());
 
         // TODO: Take the gameData variable in this class and "push" it to all of my interface instances
+        foreach(IDataHandler dataHandler in dataObjs)
+        {
+            dataHandler.LoadData(gameData);
+        }
+
     }
 
     public void SaveGame()

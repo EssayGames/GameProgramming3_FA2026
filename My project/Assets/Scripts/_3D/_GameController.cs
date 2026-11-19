@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Yarn.Unity;
 
-public class _GameController : MonoBehaviour
+public class _GameController : MonoBehaviour, IDataHandler
 {
     //for singleton classes we want to make sure that this class will be "protected"
     //what that means is that the "data" or variable of this class can be fetched publicly
@@ -51,15 +51,15 @@ public class _GameController : MonoBehaviour
             //the below logic checks to see if data has been loaded into loadPos
             //if loadPos is `blank` then the game spawns the player at the mainStartingTransform
             //if loadPos has data then the game spawns the player at the loadPos & loadRot spot
-            if (loadPos == Vector3.zero)
-            {
-                //Calls the Instantation method using dynamic arguments for the position and rotation
-                SpawnThirdPersonPrefab(mainStartingTransform.position, mainStartingTransform.rotation);
-            }
-            else
-            {
-                SpawnThirdPersonPrefab(loadPos, loadRot);
-            }
+            //if (loadPos == Vector3.zero)
+            //{
+            //    //Calls the Instantation method using dynamic arguments for the position and rotation
+            //    SpawnThirdPersonPrefab(mainStartingTransform.position, mainStartingTransform.rotation);
+            //}
+            //else
+            //{
+            //    SpawnThirdPersonPrefab(loadPos, loadRot);
+            //}
 
             loadCoins();
         }
@@ -139,6 +139,24 @@ public class _GameController : MonoBehaviour
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.transform.position = newPos.position;
+    }
+
+    public void LoadData(GameData data)
+    {
+        loadPos = data.playerPos;
+        if(loadPos == Vector3.zero)
+        {
+            SpawnThirdPersonPrefab(mainStartingTransform.position, mainStartingTransform.rotation);
+        }
+        else
+        {
+            SpawnThirdPersonPrefab(loadPos, loadRot);
+        }
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        //no data to save (at this time)
     }
 }
 

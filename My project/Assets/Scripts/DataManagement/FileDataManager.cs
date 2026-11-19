@@ -17,7 +17,40 @@ public class FileDataManager
 
     public GameData LoadFile()
     {
+        //a lot of the methodology in this method is echoed in the SaveFile() method below
+        //the exception is that we're `reading` the file at our fullPathToFile instead of `writing`
+        //and we are *de*serializing the JSON/File on our computer back into a GameData class
+        string fullPathToFile = Path.Combine(dataDirectoryPath, dataFileName);
+
         GameData loadedData = null;
+        if (File.Exists(fullPathToFile))
+        {
+            try
+            {
+                //creating a temporary string that will store the full data of a file from our computer
+                //we will use this in our JsonUtility to transcode back into a GameData class
+                string dataToLoad = "";
+
+                //We open a fileStream on our local drive to the fullPathToFile
+                //and then `read` the data from that file in completion and store it into the dataToLoad string
+                using(FileStream stream = new FileStream(fullPathToFile, FileMode.Open))
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        dataToLoad = reader.ReadToEnd();
+                    }
+                }
+
+                //one the string dataToLoad has been populated with the data from our file
+                //we will deserialize that back into a GameData class using JsonUtility
+                loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
+            }
+            catch(Exception e)
+            {
+                Debug.LogError("Path does not exist: " + fullPathToFile + "\n" + e);
+            }
+
+        }
 
         return loadedData;
     }
