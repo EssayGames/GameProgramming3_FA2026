@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: 3D_demo_student
+  companyName: NicholasOBrienisAmazing
+  productName: ObvsAmazingProj
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -858,8 +858,8 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: 3D_demo_student
-  metroPackageVersion: 
+  metroPackageName: 3Ddemostudent
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -867,7 +867,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: 3D_demo_student
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: 3D_demo_student
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0

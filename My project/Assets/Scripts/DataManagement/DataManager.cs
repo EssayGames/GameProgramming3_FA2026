@@ -55,6 +55,7 @@ public class DataManager : MonoBehaviour
     public void LoadGame()
     {
         //TODO: The FileSystem class deserialize our gameData and load into this class
+        this.gameData = fileSystem.LoadFile();
 
         if(this.gameData == null)
         {
@@ -62,7 +63,7 @@ public class DataManager : MonoBehaviour
             NewGame();
         }
 
-        //TODO: Push the gameData to all of our interface instances
+        //FINISHED: Push the gameData to all of our interface instances
         foreach(IDataHandler dataHandler in dataObjs)
         {
             dataHandler.LoadData(gameData);

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using StarterAssets;
 
-public class GameController : MonoBehaviour
+public class GameController : MonoBehaviour, IDataHandler
 {
     //this instance variable is the static reference to this class
     //it can only be overwritten within this class (the private set determines that)
@@ -47,17 +47,17 @@ public class GameController : MonoBehaviour
     {
         if(scene.buildIndex == 0)
         {
-            if(!firstSceneloaded)
-            {
-                Debug.Log("Spawned Character at starting Location");
-                SpawnCharacter(startingLoc.position, startingLoc.rotation);
-                firstSceneloaded = true;
-            }
-            else
-            {
-                Debug.Log("Spawned Character at new Location");
-                SpawnCharacter(loadLoc, loadRot);
-            }
+            //if(!firstSceneloaded)
+            //{
+            //    Debug.Log("Spawned Character at starting Location");
+            //    SpawnCharacter(startingLoc.position, startingLoc.rotation);
+            //    firstSceneloaded = true;
+            //}
+            //else
+            //{
+            //    Debug.Log("Spawned Character at new Location");
+            //    SpawnCharacter(loadLoc, loadRot);
+            //}
 
             loadCoins();
         }
@@ -129,6 +129,27 @@ public class GameController : MonoBehaviour
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.transform.position = movePos.position;
+    }
+
+    public void LoadData(GameData data)
+    {
+        loadLoc = data.playerPos;
+
+        if(loadLoc == Vector3.zero)
+        {
+            SpawnCharacter(startingLoc.position, startingLoc.rotation);
+        }
+        else
+        {
+            SpawnCharacter(loadLoc, loadRot);
+        }
+
+
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        //no data needs to be saved (at the moment)
     }
 }
 

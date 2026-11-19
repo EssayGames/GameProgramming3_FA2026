@@ -17,7 +17,39 @@ public class FileDataManager
 
     public GameData LoadFile()
     {
+        //this string is loading the file path on our local machine
+        //the variables in the Path.Combine() method are assigned by the DataManager singleton using the constructor
+        string fullPathToFile = Path.Combine(dataDirectoryName, dataFileName);
+
+        //this will be the returned GameData class data, if it's null our DataManager will create new GameData
         GameData loadedData = null;
+        
+        //checks to see that our file exists and then load the file using the FileStream and FileReader classes from System.IO
+        if (File.Exists(fullPathToFile))
+        {
+            try
+            {
+                //LOOK at SaveFile() method for documentation on what's happening below
+                //the important difference is that we're *de*serializing the data from the local file
+                //back into a GameData variable that we're returning when we call this method from DataManager
+                string dataToLoad = "";
+
+                using(FileStream stream = new FileStream(fullPathToFile, FileMode.Open))
+                {
+                    using(StreamReader reader = new StreamReader(stream))
+                    {
+                        dataToLoad = reader.ReadToEnd();
+                    }
+                }
+
+                loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Error: File Path at: " + fullPathToFile + "cannot be found. Did not load data. \n" + e);
+            }
+
+        }
 
         return loadedData;
     }
